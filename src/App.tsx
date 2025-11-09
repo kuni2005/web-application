@@ -8,6 +8,7 @@ import { Ayuda } from './components/Ayuda';
 import { AdminPanel } from './components/AdminPanel';
 import { DigitalDNI } from './components/DigitalDNI';
 import { DynamicForm } from './components/DynamicForm';
+import { Chatbot } from './components/Chatbot';
 
 type ViewType = 
   | "dashboard" 
@@ -63,6 +64,8 @@ export default function App() {
       <main className="pt-16">
         {renderView()}
       </main>
+      {/* Chatbot flotante */}
+      <Chatbot userName="Carlos Mendoza" />
     </div>
   );
 }

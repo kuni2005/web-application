@@ -157,7 +157,7 @@ export function ServicesGrid({ onViewChange, fullView = false, onStartTramite }:
             </div>
             <Select value={filterCategory} onValueChange={setFilterCategory}>
               <SelectTrigger className="border-slate-300 shadow-sm">
-                <SelectValue placeholder="Filtrar por categoría" />
+                <SelectValue />
               </SelectTrigger>
               <SelectContent>
                 {categories.map((category) => (

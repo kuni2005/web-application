@@ -16,7 +16,6 @@ import {
   Share2, 
   QrCode,
   CheckCircle,
-  Activity,
   Hash
 } from 'lucide-react';
 
@@ -287,7 +286,7 @@ function WalletContent({ documents, metrics, selectedDocument, setSelectedDocume
                   </label>
                   <Select value={selectedDocument} onValueChange={setSelectedDocument}>
                     <SelectTrigger className="bg-white border-slate-300">
-                      <SelectValue placeholder="Selecciona un documento" />
+                      <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
                       {documents.map((doc: any) => (

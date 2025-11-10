@@ -1,71 +1,44 @@
-import { useState } from 'react';
-import { Header } from './components/Header';
-import { Dashboard } from './components/Dashboard';
-import { WalletSection } from './components/WalletSection';
-import { ServicesGrid } from './components/ServicesGrid';
-import { Solicitudes } from './components/Solicitudes';
-import { Ayuda } from './components/Ayuda';
-import { AdminPanel } from './components/AdminPanel';
-import { DigitalDNI } from './components/DigitalDNI';
-import { DynamicForm } from './components/DynamicForm';
-import { Chatbot } from './components/Chatbot';
+// App.js
 
-type ViewType = 
-  | "dashboard" 
-  | "birth-certificate" 
-  | "digital-dni" 
-  | "admin" 
-  | "wallet" 
-  | "services" 
-  | "report" 
-  | "reports-summary" 
-  | "solicitudes" 
-  | "ayuda"
-  | "tramite-form";
+import { useAuth } from "react-oidc-context";
 
-export default function App() {
-  const [currentView, setCurrentView] = useState<ViewType>("dashboard");
-  const [currentTramite, setCurrentTramite] = useState<{ id: string; name: string } | null>(null);
+function App() {
+  const auth = useAuth();
 
-  const handleStartTramite = (tramiteId: string, tramiteName: string) => {
-    setCurrentTramite({ id: tramiteId, name: tramiteName });
-    setCurrentView('tramite-form');
+  const signOutRedirect = () => {
+    const clientId = "4ih0t549ecd43jp2nmnhakoems";
+    const logoutUri = "http://localhost:5173/";
+    const cognitoDomain = "https://us-east-2u2uoxvhrx.auth.us-east-2.amazoncognito.com";
+    window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(logoutUri)}`;
   };
 
-  const renderView = () => {
-    switch (currentView) {
-      case "dashboard":
-        return <Dashboard onViewChange={setCurrentView} onStartTramite={handleStartTramite} />;
-      case "wallet":
-        return <WalletSection onViewChange={setCurrentView} fullView={true} />;
-      case "services":
-        return <ServicesGrid onViewChange={setCurrentView} fullView={true} onStartTramite={handleStartTramite} />;
-      case "solicitudes":
-        return <Solicitudes onViewChange={setCurrentView} />;
-      case "ayuda":
-        return <Ayuda onViewChange={setCurrentView} />;
-      case "admin":
-        return <AdminPanel onViewChange={setCurrentView} />;
-      case "digital-dni":
-        return <DigitalDNI onViewChange={setCurrentView} />;
-      case "tramite-form":
-        return <DynamicForm 
-          onClose={() => setCurrentView('services')} 
-          tramiteName={currentTramite?.name}
-        />;
-      default:
-        return <Dashboard onViewChange={setCurrentView} onStartTramite={handleStartTramite} />;
-    }
-  };
+  if (auth.isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (auth.error) {
+    return <div>Encountering error... {auth.error.message}</div>;
+  }
+
+  if (auth.isAuthenticated) {
+    return (
+        <div>
+          <pre> Hello: {auth.user?.profile.email} </pre>
+          <pre> ID Token: {auth.user?.id_token} </pre>
+          <pre> Access Token: {auth.user?.access_token} </pre>
+          <pre> Refresh Token: {auth.user?.refresh_token} </pre>
+
+          <button onClick={() => auth.removeUser()}>Sign out</button>
+        </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-red-50">
-      <Header currentView={currentView} onViewChange={setCurrentView} />
-      <main className="pt-16">
-        {renderView()}
-      </main>
-      {/* Chatbot flotante */}
-      <Chatbot userName="Carlos Mendoza" />
-    </div>
+      <div>
+        <button onClick={() => auth.signinRedirect()}>Sign in</button>
+        <button onClick={() => signOutRedirect()}>Sign out</button>
+      </div>
   );
 }
+
+export default App;

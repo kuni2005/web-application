@@ -16,8 +16,53 @@ function App() {
   };
 
   if (auth.isLoading) {
-    return <div>Loading...</div>;    {/* Poner pantalla de carga */}
-
+    return (
+      <div className="min-h-screen bg-linear-to-br from-red-50 via-white to-blue-50 flex items-center justify-center">
+        <div className="text-center">
+          {/* Logo animado */}
+          <div className="relative mb-8">
+            <div className="w-24 h-24 bg-linear-to-br from-red-600 to-blue-600 rounded-2xl flex items-center justify-center mx-auto shadow-2xl animate-pulse">
+              <Shield className="w-12 h-12 text-white" />
+            </div>
+            
+            {/* Círculos animados alrededor */}
+            <div className="absolute -top-2 -right-2 w-6 h-6 bg-red-400 rounded-full animate-bounce delay-100"></div>
+            <div className="absolute -bottom-2 -left-2 w-4 h-4 bg-blue-400 rounded-full animate-bounce delay-300"></div>
+          </div>
+          
+          {/* Título */}
+          <h1 className="text-3xl font-bold bg-linear-to-r from-red-600 to-blue-600 bg-clip-text text-transparent mb-4">
+            Perú Digital
+          </h1>
+          
+          {/* Barra de progreso animada */}
+          <div className="w-64 mx-auto mb-6">
+            <div className="h-2 bg-slate-200 rounded-full overflow-hidden">
+              <div className="h-full bg-linear-to-r from-red-500 to-blue-500 rounded-full animate-pulse"></div>
+            </div>
+          </div>
+          
+          {/* Texto de carga */}
+          <p className="text-slate-600 text-lg mb-2">Iniciando sesión segura...</p>
+          <p className="text-slate-500 text-sm">Autenticando con AWS Cognito</p>
+          
+          {/* Puntos animados */}
+          <div className="flex justify-center space-x-1 mt-4">
+            <div className="w-2 h-2 bg-red-400 rounded-full animate-bounce"></div>
+            <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce delay-100"></div>
+            <div className="w-2 h-2 bg-red-400 rounded-full animate-bounce delay-200"></div>
+          </div>
+          
+          {/* Información de seguridad */}
+          <div className="mt-8 p-4 bg-white/70 rounded-lg shadow-lg max-w-sm mx-auto">
+            <div className="flex items-center justify-center text-sm text-slate-600">
+              <Shield className="w-4 h-4 mr-2 text-green-600" />
+              <span>Conexión cifrada SSL/TLS</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   if (auth.error) {

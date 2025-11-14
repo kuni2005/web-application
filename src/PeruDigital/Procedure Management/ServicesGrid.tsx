@@ -2,7 +2,7 @@ import { Card } from '../ui/card';
 import { Button } from '../ui/button';
 import { Badge } from '../ui/badge';
 import { Input } from '../ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
+import { Select } from '../ui/select';
 import { ArrowLeft, Search, Baby, CreditCard, Heart, Home, FileText, Calculator, Car, Scale } from 'lucide-react';
 import { useState } from 'react';
 
@@ -35,7 +35,7 @@ export function ServicesGrid({ onViewChange, fullView = false, onStartTramite }:
       icon: Baby,
       status: 'Disponible',
       gradient: 'from-red-600 to-red-700',
-      category: 'identificacion'
+      category: 'RENIEC'
     },
     {
       id: 'renovacion-dni',
@@ -44,7 +44,7 @@ export function ServicesGrid({ onViewChange, fullView = false, onStartTramite }:
       icon: CreditCard,
       status: 'Disponible',
       gradient: 'from-gray-800 to-black',
-      category: 'identificacion'
+      category: 'RENIEC'
     },
     {
       id: 'matrimonio',
@@ -53,7 +53,7 @@ export function ServicesGrid({ onViewChange, fullView = false, onStartTramite }:
       icon: Heart,
       status: 'Disponible',
       gradient: 'from-red-500 to-red-600',
-      category: 'registro-civil'
+      category: 'RENIEC'
     },
     {
       id: 'cambio-domicilio',
@@ -62,7 +62,7 @@ export function ServicesGrid({ onViewChange, fullView = false, onStartTramite }:
       icon: Home,
       status: 'Disponible',
       gradient: 'from-gray-700 to-gray-800',
-      category: 'identificacion'
+      category: 'RENIEC'
     },
     {
       id: 'solicitud-ruc',
@@ -71,7 +71,7 @@ export function ServicesGrid({ onViewChange, fullView = false, onStartTramite }:
       icon: FileText,
       status: 'Disponible',
       gradient: 'from-black to-gray-900',
-      category: 'tributario'
+      category: 'SUNAT'
     },
     {
       id: 'estado-tributario',
@@ -80,7 +80,7 @@ export function ServicesGrid({ onViewChange, fullView = false, onStartTramite }:
       icon: Calculator,
       status: 'Disponible',
       gradient: 'from-gray-600 to-gray-700',
-      category: 'tributario'
+      category: 'SUNAT'
     },
     {
       id: 'transferencia-vehicular',
@@ -89,7 +89,7 @@ export function ServicesGrid({ onViewChange, fullView = false, onStartTramite }:
       icon: Car,
       status: 'Nuevo',
       gradient: 'from-gray-900 to-black',
-      category: 'notarial'
+      category: 'Notaria'
     },
     {
       id: 'arrendamiento',
@@ -98,16 +98,15 @@ export function ServicesGrid({ onViewChange, fullView = false, onStartTramite }:
       icon: Scale,
       status: 'Disponible',
       gradient: 'from-gray-500 to-gray-600',
-      category: 'notarial'
+      category: 'Notaria'
     }
   ];
 
   const categories = [
-    { value: 'all', label: 'Todas las categorías' },
-    { value: 'identificacion', label: 'Identificación y DNI' },
-    { value: 'tributario', label: 'Trámites Tributarios' },
-    { value: 'registro-civil', label: 'Registro Civil' },
-    { value: 'notarial', label: 'Servicios Notariales' }
+    { value: 'all', label: 'Todas las entidades' },
+    { value: 'RENIEC', label: 'RENIEC' },
+    { value: 'SUNAT', label: 'SUNAT' },
+    { value: 'Notaria', label: 'Notaría' }
   ];
 
   const filteredServices = services.filter(service => {
@@ -151,17 +150,12 @@ export function ServicesGrid({ onViewChange, fullView = false, onStartTramite }:
                 />
               </div>
             </div>
-            <Select value={filterCategory} onValueChange={setFilterCategory}>
-              <SelectTrigger className="border-2 border-black shadow-md font-medium">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {categories.map((category) => (
-                  <SelectItem key={category.value} value={category.value}>
-                    {category.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
+            <Select value={filterCategory} onValueChange={setFilterCategory} className="border-2 border-black shadow-md font-medium h-10">
+              {categories.map((category) => (
+                <option key={category.value} value={category.value}>
+                  {category.label}
+                </option>
+              ))}
             </Select>
           </div>
 

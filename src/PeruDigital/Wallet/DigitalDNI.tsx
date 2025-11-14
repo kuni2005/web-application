@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { Card } from './ui/card';
-import { Button } from './ui/button';
-import { Badge } from './ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
+import { Card } from '../ui/card';
+import { Button } from '../ui/button';
+import { Badge } from '../ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
 import { ArrowLeft, Download, Share2, QrCode, Shield, Eye, EyeOff, Copy, Check } from 'lucide-react';
 
 interface DigitalDNIProps {
@@ -262,78 +262,6 @@ export function DigitalDNI({ onViewChange }: DigitalDNIProps) {
               </div>
             </Card>
           </div>
-        </div>
-
-        {/* Tabs adicionales */}
-        <div className="mt-8">
-          <Tabs defaultValue="verification" className="w-full">
-            <TabsList>
-              <TabsTrigger value="verification">Historial de Verificaciones</TabsTrigger>
-              <TabsTrigger value="usage">Historial de Uso</TabsTrigger>
-              <TabsTrigger value="security">Configuración de Seguridad</TabsTrigger>
-            </TabsList>
-
-            <TabsContent value="verification">
-              <Card className="p-6">
-                <h3 className="font-semibold text-gray-900 mb-4">Últimas Verificaciones</h3>
-                <div className="space-y-3">
-                  {[
-                    { fecha: '2024-01-15 14:30', entidad: 'Banco Continental', tipo: 'Apertura de cuenta' },
-                    { fecha: '2024-01-12 09:15', entidad: 'Universidad San Marcos', tipo: 'Matrícula académica' },
-                    { fecha: '2024-01-10 16:45', entidad: 'Empresa ABC SAC', tipo: 'Proceso de contratación' }
-                  ].map((verificacion, index) => (
-                    <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                      <div>
-                        <p className="font-medium text-gray-900">{verificacion.entidad}</p>
-                        <p className="text-sm text-gray-600">{verificacion.tipo}</p>
-                      </div>
-                      <span className="text-xs text-gray-500">{verificacion.fecha}</span>
-                    </div>
-                  ))}
-                </div>
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="usage">
-              <Card className="p-6">
-                <h3 className="font-semibold text-gray-900 mb-4">Estadísticas de Uso</h3>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-gray-900">142</div>
-                    <div className="text-sm text-gray-600">Total verificaciones</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-gray-900">12</div>
-                    <div className="text-sm text-gray-600">Este mes</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-gray-900">3</div>
-                    <div className="text-sm text-gray-600">Esta semana</div>
-                  </div>
-                </div>
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="security">
-              <Card className="p-6">
-                <h3 className="font-semibold text-gray-900 mb-4">Configuración de Seguridad</h3>
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <span>Notificaciones de uso</span>
-                    <Badge className="bg-gray-200 text-gray-800 border border-gray-400">Activas</Badge>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span>Verificación biométrica</span>
-                    <Badge className="bg-gray-200 text-gray-800 border border-gray-400">Habilitada</Badge>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span>Acceso remoto</span>
-                    <Badge className="bg-gray-200 text-gray-800 border border-gray-400">Permitido</Badge>
-                  </div>
-                </div>
-              </Card>
-            </TabsContent>
-          </Tabs>
         </div>
       </div>
     </div>

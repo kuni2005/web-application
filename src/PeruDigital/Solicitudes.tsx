@@ -6,7 +6,7 @@ import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
-import { DynamicForm } from './DynamicForm';
+import { DynamicForm } from './Procedure Management/DynamicForm';
 import { ArrowLeft, Plus, Calendar, Clock, FileText, Search, Filter } from 'lucide-react';
 
 interface SolicitudesProps {

@@ -1,13 +1,13 @@
 import { useState } from 'react';
-import { Header } from './components/Header';
-import { Dashboard } from './components/Dashboard';
-import { WalletSection } from './components/WalletSection';
-import { ServicesGrid } from './components/ServicesGrid';
-import { Solicitudes } from './components/Solicitudes';
-import { Ayuda } from './components/Ayuda';
-import { AdminPanel } from './components/AdminPanel';
-import { DigitalDNI } from './components/DigitalDNI';
-import { DynamicForm } from './components/DynamicForm';
+import { Header } from './PeruDigital/Header'
+import { Dashboard } from './PeruDigital/Dashboard';
+import { WalletSection } from './PeruDigital/Wallet/WalletSection';
+import { ServicesGrid } from './PeruDigital/Procedure Management/ServicesGrid';
+import { Solicitudes } from './PeruDigital/Solicitudes';
+import { Ayuda } from './PeruDigital/Ayuda';
+import { AdminPanel } from './PeruDigital/AdminPanel';
+import { DigitalDNI } from './PeruDigital/Wallet/DigitalDNI';
+import { DynamicForm } from './PeruDigital/Procedure Management/DynamicForm';
 
 type ViewType = 
   | "dashboard" 

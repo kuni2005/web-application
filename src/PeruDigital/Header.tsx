@@ -16,7 +16,6 @@ export function Header({ currentView, onViewChange }: HeaderProps) {
     { id: 'wallet', label: 'Mi Billetera', view: 'wallet' },
     { id: 'solicitudes', label: 'Solicitudes', view: 'solicitudes' },
     { id: 'ayuda', label: 'Ayuda', view: 'ayuda' },
-    { id: 'admin', label: 'Panel Admin', view: 'admin' },
   ];
 
   return (

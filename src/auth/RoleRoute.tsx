@@ -16,5 +16,5 @@ export const RoleRoute = ({ children, allowedRoles }: RoleRouteProps) => {
     const groups = auth.user?.profile["cognito:groups"] as string[] || [];
     const hasAccess = allowedRoles.some(role => groups.includes(role));
 
-    return hasAccess ? children : <Navigate to="/" replace />;
+    return hasAccess ? children : <Navigate to="/not-found" replace />;
 };

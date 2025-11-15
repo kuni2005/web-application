@@ -1,20 +1,30 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { ProtectedRoute } from '@/auth/ProtectedRoute';
 import { RoleRoute } from '@/auth/RoleRoute';
 
+import { ROLES } from '@/utils/roles';
+
+
+// Páginas públicas ===================================
+import { Login } from "@/pages/Login";
+// import Login from "../pages/Login";
+// import Info from "../pages/Info";
+
+// Páginas de administración ===============================
+// import AdminPage from "../pages/AdminPage";
+// import EditorPage from "../pages/EditorPage";
+
+// Páginas de error / no autorizado ===========================
+// import NotAuthorized from "../pages/NotAuthorized";
+// import NotFound from "../pages/NotFound";
+
 export const AppRouter = () => {
-
-    const AppRoles = {
-        ADMIN: "Admin",
-        SUPERADMIN: "User",
-        CIUDADANO: "Ciudadano",
-    } as const;
-
     return (
 
         <Routes>
             {/* RUTAS PUBLICAS */}
             <Route path="/" element={<div>Home Public</div>} />
+            <Route path="/login" element={<Login />} />
             <Route path="/rutapublica2" element={<div>Home Public 2</div>} />
 
 
@@ -30,7 +40,7 @@ export const AppRouter = () => {
             <Route
                 path="/dadwa"
                 element={
-                    <RoleRoute allowedRoles={[AppRoles.ADMIN, AppRoles.SUPERADMIN]}>
+                    <RoleRoute allowedRoles={[ROLES.ADMIN, ROLES.SUPERADMIN]}>
                         <div>Ruta Protegida con vista para el admin</div>
                     </RoleRoute>
                 }
@@ -38,11 +48,14 @@ export const AppRouter = () => {
             <Route
                 path="/rol2"
                 element={
-                    <RoleRoute allowedRoles={[AppRoles.CIUDADANO]}>
+                    <RoleRoute allowedRoles={[ROLES.CIUDADANO]}>
                         <div>Ruta Protegida con vista para el usuario</div>
                     </RoleRoute>
                 }
             />
+
+            <Route path="*" element={<Navigate to="/not-found" replace />} />
+
 
         </Routes>
     )

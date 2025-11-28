@@ -1,4 +1,4 @@
-import { AdminSuperAdminPanel } from "@/components/AdminSuperAdminPanel"
+import { AdminSuperAdminPanel } from "@/PeruDigital/AdminSuperAdminPanel";
 
 export const SuperAdminPanelPage = () => {
     return(

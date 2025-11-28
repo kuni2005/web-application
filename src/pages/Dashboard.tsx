@@ -1,36 +1,115 @@
-// import React from "react";
-// solo seria ejemplo de como importar componentes y usarlos en la página
+import { useState } from 'react';
 
-import { Dashboard } from "@/components/Dashboard";
-import { SignOutButton } from "@/components/SignOutButton";
+import { Header } from '@/PeruDigital/Header';
+import { Dashboard } from '@/PeruDigital/Dashboard';
+import { WalletSection } from '@/PeruDigital/Wallet/WalletSection';
+import { ServicesGrid } from '@/PeruDigital/Procedure Management/ServicesGrid';
+import { Solicitudes } from '@/PeruDigital/Solicitudes';
+import { Ayuda } from '@/PeruDigital/Ayuda';
+import { AdminPanel } from '@/PeruDigital/AdminPanel';
+import { DigitalDNI } from '@/PeruDigital/Wallet/DigitalDNI';
+import { DynamicForm } from '@/PeruDigital/Procedure Management/DynamicForm';
+import { getProcedureSchema } from '@/PeruDigital/Procedure Management/procedureSchemas';
+import { Chatbot } from '@/PeruDigital/Chatbot';
+
+// para loguout crear una interfaz para cerrar sesión
 import { useAuth } from 'react-oidc-context';
+import { SignOutButton } from '@/PeruDigital/SignOutButton';
+import { COGNITO_DOMAIN, COGNITO_CLIENT_ID, LOGOUT_REDIRECT } from '@/config';
 
-
-type ViewType = 'home' | 'settings' | 'wallet';
-
-const handleViewChange = (view: ViewType) => {
-  console.log(`Cambiando de vista a: ${view}`);
-};
-
-const handleStartTramite = (id: string, name: string) => {
-  console.log(`Iniciando trámite: ${name} (ID: ${id})`);
-};
-
+type ViewType =
+  | "dashboard"
+  | "birth-certificate"
+  | "digital-dni"
+  | "admin"
+  | "wallet"
+  | "services"
+  | "report"
+  | "reports-summary"
+  | "solicitudes"
+  | "ayuda"
+  | "tramite-form";
 export const DashboardPage = () => {
+  const [currentView, setCurrentView] = useState<ViewType>("dashboard");
+  const [currentTramite, setCurrentTramite] = useState<{ id: string; name: string } | null>(null);
+
+  const handleStartTramite = (tramiteId: string, tramiteName: string) => {
+    console.log('🚀 Iniciando trámite:', { tramiteId, tramiteName });
+    setCurrentTramite({ id: tramiteId, name: tramiteName });
+    setCurrentView('tramite-form');
+  };
+
   const auth = useAuth();
-  const handleSignOut = () => {
-    auth
-    .removeUser()
-    .then(() => {
-        void auth.signoutRedirect();
-    })
-  }
+  const handleSignOut = async () => {
+    await auth.removeUser();
+    const logoutUrl =
+      `${COGNITO_DOMAIN}/logout` +
+      `?client_id=${COGNITO_CLIENT_ID}` +
+      `&logout_uri=${LOGOUT_REDIRECT}`;
+    window.location.href = logoutUrl;
+  };
+
+
+  const renderView = () => {
+    switch (currentView) {
+      case "dashboard":
+        return <Dashboard onViewChange={setCurrentView} onStartTramite={handleStartTramite} />;
+      case "wallet":
+        return <WalletSection onViewChange={setCurrentView} fullView={true} />;
+      case "services":
+        return <ServicesGrid onViewChange={setCurrentView} fullView={true} onStartTramite={handleStartTramite} />;
+      case "solicitudes":
+        return <Solicitudes onViewChange={setCurrentView} />;
+      case "ayuda":
+        return <Ayuda onViewChange={setCurrentView} />;
+      case "admin":
+        return <AdminPanel onViewChange={setCurrentView} />;
+      case "digital-dni":
+        return <DigitalDNI onViewChange={setCurrentView} />;
+      case "tramite-form":
+        if (!currentTramite) {
+          console.error('❌ No hay trámite seleccionado');
+          return <Dashboard onViewChange={setCurrentView} onStartTramite={handleStartTramite} />;
+        }
+
+        const schema = getProcedureSchema(currentTramite.id);
+
+        if (!schema) {
+          console.error('❌ Schema no encontrado para:', currentTramite.id);
+          alert(`No se encontró el schema para el trámite: ${currentTramite.name}`);
+          return <ServicesGrid onViewChange={setCurrentView} fullView={true} onStartTramite={handleStartTramite} />;
+        }
+
+        console.log('✅ Schema cargado:', schema);
+
+        return <DynamicForm
+          schema={schema}
+          onClose={() => {
+            setCurrentTramite(null);
+            setCurrentView('services');
+          }}
+          onSubmit={(data) => {
+            console.log('📤 Datos del trámite enviados:', data);
+            // Aquí iría la llamada al backend
+            alert(`Trámite "${schema.name}" enviado exitosamente`);
+            setCurrentTramite(null);
+            setCurrentView('dashboard');
+          }}
+        />;
+      default:
+        return <Dashboard onViewChange={setCurrentView} onStartTramite={handleStartTramite} />;
+    }
+  };
+
   return (
-    <div>
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-red-50">
       <SignOutButton onClick={handleSignOut} />
-      <Dashboard
-        onViewChange={handleViewChange}
-        onStartTramite={handleStartTramite} />
+      <Header currentView={currentView} onViewChange={setCurrentView} />
+      <main className="pt-16">
+        {renderView()}
+      </main>
+      {/* Chatbot flotante */}
+      <Chatbot userName="Carlos Mendoza" />
     </div>
-  )
+  );
 }

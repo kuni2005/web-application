@@ -1,5 +1,5 @@
 import { Shield } from 'lucide-react';
-import { SignInButton } from '@/components/SignInButton';
+import { SignInButton } from '@/PeruDigital/SignInButton';
 import { useAuth } from 'react-oidc-context';
 // import { Navigate } from 'react-router-dom';
 

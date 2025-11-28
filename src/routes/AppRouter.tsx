@@ -5,7 +5,6 @@ import { ROLES } from '@/utils/constants/roles';
 import { ROUTE_PATHS } from '@/utils/constants/routePaths';
 
 // Páginas públicas
-import { IndexPage } from '@/pages/Index';
 import { LoginPage } from '@/pages/Login';
 import { NotFoundPage } from '@/pages/NotFound';
 
@@ -19,8 +18,7 @@ export const AppRouter = () => {
 
         <Routes>
             {/* RUTAS PUBLICAS */}
-            <Route path={ROUTE_PATHS.INDEX} element={<IndexPage />} />
-            <Route path={ROUTE_PATHS.LOGIN} element={<LoginPage />} />
+            <Route path={ROUTE_PATHS.INDEX} element={<LoginPage />} />
             <Route path={ROUTE_PATHS.NOT_FOUND} element={<NotFoundPage />} />
 
             {/* RUTAS PROTEGIDAS */}
@@ -40,17 +38,13 @@ export const AppRouter = () => {
                     </RoleRoute>
                 }
             />
-            {/* <Route
+            <Route
                 path={ROUTE_PATHS.SUPER_ADMIN_PANEL}
                 element={
                     <RoleRoute allowedRoles={[ROLES.SUPERADMIN]}>
                         <SuperAdminPanelPage />
                     </RoleRoute>
                 }
-            /> */}
-            <Route
-                path={ROUTE_PATHS.SUPER_ADMIN_PANEL}
-                element={<SuperAdminPanelPage />}
             />
 
             <Route path="*" element={<Navigate to={ROUTE_PATHS.NOT_FOUND} replace />} />

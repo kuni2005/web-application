@@ -17,14 +17,13 @@ export const AppRouter = () => {
     const auth = useAuth();
 
     return (
-
         <Routes>
             {/* RUTAS PUBLICAS */}
             <Route
                 path={ROUTE_PATHS.INDEX}
                 element={
                     auth.isAuthenticated ?
-                        <RoleRoute allowedRoles={[ROLES.ADMIN, ROLES.SUPERADMIN]}>
+                        <RoleRoute allowedRoles={[ROLES.ADMIN, ROLES.SUPERADMIN, ROLES.CITIZEN]}>
                             <DashboardPage />
                         </RoleRoute> : <LoginPage />
                 }

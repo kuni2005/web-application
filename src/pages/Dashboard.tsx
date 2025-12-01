@@ -12,10 +12,6 @@ import { DynamicForm } from '@/PeruDigital/Procedure Management/DynamicForm';
 import { getProcedureSchema } from '@/PeruDigital/Procedure Management/procedureSchemas';
 import { Chatbot } from '@/PeruDigital/Chatbot';
 
-// para loguout crear una interfaz para cerrar sesión
-import { useAuth } from 'react-oidc-context';
-import { SignOutButton } from '@/PeruDigital/SignOutButton';
-import { COGNITO_DOMAIN, COGNITO_CLIENT_ID, LOGOUT_REDIRECT } from '@/config';
 
 type ViewType =
   | "dashboard"
@@ -39,15 +35,6 @@ export const DashboardPage = () => {
     setCurrentView('tramite-form');
   };
 
-  const auth = useAuth();
-  const handleSignOut = async () => {
-    await auth.removeUser();
-    const logoutUrl =
-      `${COGNITO_DOMAIN}/logout` +
-      `?client_id=${COGNITO_CLIENT_ID}` +
-      `&logout_uri=${LOGOUT_REDIRECT}`;
-    window.location.href = logoutUrl;
-  };
 
 
   const renderView = () => {
@@ -103,7 +90,6 @@ export const DashboardPage = () => {
 
   return (
     <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-red-50">
-      <SignOutButton onClick={handleSignOut} />
       <Header currentView={currentView} onViewChange={setCurrentView} />
       <main className="pt-16">
         {renderView()}

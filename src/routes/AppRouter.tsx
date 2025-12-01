@@ -33,17 +33,9 @@ export const AppRouter = () => {
 
             {/* RUTAS PROTEGIDAS */}
             <Route
-                path={ROUTE_PATHS.ADMIN}
-                element={
-                    <RoleRoute allowedRoles={[ROLES.ADMIN]}>
-                        <div>Ruta Protegida con vista para el usuario</div>
-                    </RoleRoute>
-                }
-            />
-            <Route
                 path={ROUTE_PATHS.SUPER_ADMIN_PANEL}
                 element={
-                    <RoleRoute allowedRoles={[ROLES.ADMIN]}>
+                    <RoleRoute allowedRoles={[ROLES.SUPERADMIN]}>
                         <SuperAdminPanelPage />
                     </RoleRoute>
                 }

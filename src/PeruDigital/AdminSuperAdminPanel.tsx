@@ -63,8 +63,8 @@ export function AdminSuperAdminPanel() {
                 <Shield className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-slate-900">Panel de Administración</h1>
-                <p className="text-slate-600">Gestión de Super Administradores</p>
+                <h1 className="text-2xl font-bold text-slate-900">Panel de Super Administración</h1>
+                <p className="text-slate-600">Gestión de Administradores</p>
               </div>
             </div>
             
@@ -74,7 +74,7 @@ export function AdminSuperAdminPanel() {
               className="bg-linear-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white shadow-lg hover:shadow-xl transition-all"
             >
               <Plus className="w-5 h-5 mr-2" />
-              Añadir Super Admin
+              Añadir Administrador
             </Button>
           </div>
         </div>
@@ -90,8 +90,8 @@ export function AdminSuperAdminPanel() {
                 <UserPlus className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h2 className="text-2xl font-bold text-slate-900">Crear Super Administrador</h2>
-                <p className="text-slate-600">Complete la información para crear una nueva cuenta de super admin</p>
+                <h2 className="text-2xl font-bold text-slate-900">Crear Administrador</h2>
+                <p className="text-slate-600">Complete la información para crear una nueva cuenta de administrador</p>
               </div>
             </div>
           </div>
@@ -193,7 +193,7 @@ export function AdminSuperAdminPanel() {
                 className="flex-1 bg-linear-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-6 text-lg font-semibold shadow-lg hover:shadow-xl transition-all"
               >
                 <UserPlus className="w-5 h-5 mr-2" />
-                Crear Super Administrador
+                Crear Administrador
               </Button>
               
               <Button
@@ -213,9 +213,9 @@ export function AdminSuperAdminPanel() {
           <div className="flex items-center">
             <Shield className="w-6 h-6 text-red-600 mr-3" />
             <div>
-              <h3 className="font-semibold text-red-900 mb-1">Permisos de Super Administrador</h3>
+              <h3 className="font-semibold text-red-900 mb-1">Permisos de Administrador</h3>
               <p className="text-red-700 text-sm">
-                Los super administradores tienen acceso completo para gestionar usuarios, 
+                Los administradores tienen acceso completo para gestionar usuarios, 
                 configuraciones del sistema y todas las funcionalidades administrativas.
               </p>
             </div>
